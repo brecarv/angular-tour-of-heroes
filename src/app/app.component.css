@@ -69,9 +69,3 @@ nav a:hover {
 nav a:active {
   background-color: black;
 }
-
-/* everywhere else */
-
-* {
-  font-family: Arial, Helvetica, sans-serif;
-}
