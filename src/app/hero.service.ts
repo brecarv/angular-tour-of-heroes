@@ -13,6 +13,10 @@ import { HEROES } from './mock-heroes';
 export class HeroService {
   private heroesUrl = 'api/heroes'; //URL to web api
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
   /* Service-in-Service example*/
   constructor(
     private http: HttpClient,
@@ -35,6 +39,14 @@ export class HeroService {
     return this.http.get<Hero[]>(this.heroesUrl).pipe(
       tap((_) => this.log('fetched heroes')),
       catchError(this.handleError<Hero[]>('getHeroes', []))
+    );
+  }
+
+  /** PUT: update the hero on the server */
+  updateHero(hero: Hero): Observable<any> {
+    return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
+      tap((_) => this.log(`updated hero id=${hero.id}`)),
+      catchError(this.handleError<any>('updateHero'))
     );
   }
 
